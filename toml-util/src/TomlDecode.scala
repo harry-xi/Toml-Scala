@@ -69,7 +69,7 @@ object TomlDecoder:
   given decimalDecoder: TomlDecoder[BigDecimal] with
     override def decode(node: TomlNode): BigDecimal =
       node match
-        case TomlNode.Num(number) => BigDecimal(number.toString)
+        case TomlNode.Str(numstr) => BigDecimal(numstr)
         case _                    => throw new TomlDecodeException
 
   given stringDecoder: TomlDecoder[String] with
