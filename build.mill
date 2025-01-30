@@ -1,12 +1,23 @@
 //// SNIPPET:BUILD
 package build
-import mill._, scalalib._
+import mill._, scalalib._, publish._
 
-object `toml-util` extends ScalaModule {
+object `toml-util` extends ScalaModule  with PublishModule  {
+  def publishVersion = "main-SNAPSHOT"
   def scalaVersion = "3.6.3"
   def ivyDeps = Agg(
     ivy"com.indoorvivants::toml:0.3.0-M2",
   )
+
+  def pomSettings = PomSettings(
+    description = "toml-util",
+    organization = "com.github.harry-xi",
+    url = "https://github.com/harry-xi/Toml-Scala",
+    licenses = Seq(License.MIT),
+    versionControl = VersionControl.github("harry-xi", "Toml-Scala"),
+    developers = Seq(Developer("harryxi", "harryxi", "https://github.com/harry-xi"))
+  )
+
 
   object test extends ScalaTests {
     def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.8.5")
